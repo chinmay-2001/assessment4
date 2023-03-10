@@ -21,7 +21,7 @@ export const fetchtodo = createReducer(initialState,
             ...state.slice(index + 1)
         ]
         console.log("updateitems:", updateitems)
-        return { ...state, updateitems }
+        return [...state, ...updateitems]
 
     })
 
