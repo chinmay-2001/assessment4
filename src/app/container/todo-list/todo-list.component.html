@@ -2,4 +2,6 @@
   [todoList]="(todos$ | async)!"
   (add)="AddTodo($event)"
   (del)="delTodo($event)"
+  (old)="setOld($event)"
+  (up)="upTodo($event)"
 ></app-todo-list-component>

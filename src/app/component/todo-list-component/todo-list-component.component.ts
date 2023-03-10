@@ -19,6 +19,14 @@ export class TodoListComponentComponent {
 
   @Output() del = new EventEmitter<string>()
 
-  setTodo() {
+  up_todo_name: string = ""
+  up_priority: string = ""
+  @Output() up = new EventEmitter<todo>()
+  @Output() old = new EventEmitter<todo>()
+
+  oldtodo: any
+  setTodo(todos: todo) {
+    this.oldtodo = todos
   }
+
 }

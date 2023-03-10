@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs';
-import { addTodo, delTodo } from 'src/app/store/actions/action';
+import { addTodo, delTodo, updateTodo } from 'src/app/store/actions/action';
 import { todo } from 'src/app/store/models/Todo';
 import { selectTodos } from 'src/app/store/selectors/selector';
 
@@ -29,5 +28,13 @@ export class TodoListComponent implements OnInit {
   }
   delTodo(todoName: string) {
     this.store.dispatch(delTodo({ todoName }))
+  }
+  oldtodo: todo = { name: "chinmay", priority: "low" };
+  setOld(old: todo) {
+    this.oldtodo = old
+  }
+
+  upTodo(upTodo: todo) {
+    this.store.dispatch(updateTodo({ upTodo: upTodo, oldtodo: this.oldtodo }))
   }
 }

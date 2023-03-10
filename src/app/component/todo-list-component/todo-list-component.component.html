@@ -15,7 +15,6 @@
       class="btn btn-primary"
       data-bs-toggle="modal"
       data-bs-target="#addModal"
-      (click)="setTodo()"
     >
       AddTodo
     </button>
@@ -93,15 +92,24 @@
         <tr>
           <th scope="col">Todo</th>
           <th scope="col">Priority</th>
+          <th scope="col">Update</th>
           <th scope="col">Delete</th>
-          <th scope="col">update</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let todos of todoList">
           <td>{{ todos.name }}</td>
           <td>{{ todos.priority }}</td>
-          <td><button class="btn btn-primary">Update</button></td>
+          <td>
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+              (click)="setTodo(todos)"
+            >
+              Update
+            </button>
+          </td>
           <td>
             <button class="btn btn-dark" (click)="del.emit(todos.name)">
               Delete
@@ -110,5 +118,64 @@
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<!-- update Model -->
+<div
+  class="modal fade"
+  id="updateModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="TodoName" class="form-label">Updated Todo</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="todoName"
+              [(ngModel)]="up_todo_name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="priority" class="form-label">Updated Priority</label>
+            <input
+              type="text"
+              class="form-control"
+              id="priority"
+              [(ngModel)]="up_priority"
+              name="priority"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="up.emit({ name: up_todo_name, priority: up_priority })"
+        >
+          Update Todo
+        </button>
+      </div>
+    </div>
   </div>
 </div>

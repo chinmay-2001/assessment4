@@ -1,16 +1,30 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialState } from '../state/state'
-import { getTodo, addTodo, delTodo } from "../actions/action";
+import { getTodo, addTodo, delTodo, updateTodo } from "../actions/action";
 
 import { todo } from "../models/Todo";
-import { filter } from "rxjs";
-import { TodoListComponent } from "src/app/container/todo-list/todo-list.component";
+
 
 export const fetchtodo = createReducer(initialState,
     on(getTodo, (state: todo[]) => { return state }),
-    on(addTodo, (state: todo[], { addTodos }) => { return ([...state, addTodos]) }),
-    on(delTodo, (state: todo[], { todoName }) => { console.log(state); return state.filter((todos: todo) => todos.name != todoName) }
-    )
+    on(addTodo, (state: todo[], { addTodos }) => { console.log("from add todo"); return ([...state, addTodos]) }),
+    on(delTodo, (state: todo[], { todoName }) => { return state = state.filter((todos: todo) => { console.log("Todos.Name:", todos.name, " todoName:", todoName, " State:", state); todos.name != todoName }) }
+    ),
+
+    on(updateTodo, (state: todo[], { upTodo, oldtodo }) => {
+        console.log("inside updatetodo")
+        const index = state.findIndex(todo => todo.name === oldtodo.name)
+        console.log("index:", index)
+        const updateitems = [
+            ...state.slice(0, index),
+            upTodo,
+            ...state.slice(index + 1)
+        ]
+        console.log("updateitems:", updateitems)
+        return { ...state, updateitems }
+
+    })
+
 )
 
 
