@@ -1,0 +1,5 @@
+<app-todo-list-component
+  [todoList]="(todos$ | async)!"
+  (add)="AddTodo($event)"
+  (del)="delTodo($event)"
+></app-todo-list-component>
