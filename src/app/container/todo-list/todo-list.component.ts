@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { TodoServiceService } from 'src/app/service/todo-service.service';
 import { addTodo, delTodo, updateTodo } from 'src/app/store/actions/action';
 import { todo } from 'src/app/store/models/Todo';
 import { selectTodos } from 'src/app/store/selectors/selector';
@@ -14,17 +15,20 @@ import { selectTodos } from 'src/app/store/selectors/selector';
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent implements OnInit {
-  // todos$: any;
-  todos$ = this.store.select(selectTodos)
-  constructor(private store: Store) {
+  todos$: any;
+  // todos$ = this.store.select(selectTodos)
+  constructor(private store: Store, private service: TodoServiceService) {
   }
   ngOnInit(): void {
-    // this.store.select(selectTodos).subscribe(ev => { console.log(ev); this.todos$ = ev })
+    console.log("here")
+    this.todos$ = this.service.fetchTodo()
   }
 
+
   AddTodo(addTodos: todo) {
-    console.log("reached here")
-    this.store.dispatch(addTodo({ addTodos }))
+    // console.log("reached here")
+    // this.store.dispatch(addTodo({ addTodos }))
+    // this.service.createTodo(addTodo)
   }
   delTodo(todoName: string) {
     this.store.dispatch(delTodo({ todoName }))
