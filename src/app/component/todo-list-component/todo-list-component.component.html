@@ -41,6 +41,16 @@
           <div class="modal-body">
             <form>
               <div class="mb-3">
+                <label for="TodoName" class="form-label">Id</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  name="todoName"
+                  [(ngModel)]="id_to_add"
+                />
+              </div>
+              <div class="mb-3">
                 <label for="TodoName" class="form-label">Todo</label>
                 <input
                   type="text"
@@ -74,7 +84,11 @@
               type="button"
               class="btn btn-primary"
               (click)="
-                add.emit({ name: todo_to_add, priority: Priority_to_add })
+                add.emit({
+                  _id: id_to_add,
+                  name: todo_to_add,
+                  priority: Priority_to_add
+                })
               "
             >
               Add Todo
@@ -111,7 +125,7 @@
             </button>
           </td>
           <td>
-            <button class="btn btn-dark" (click)="del.emit(todos.name)">
+            <button class="btn btn-dark" (click)="del.emit(todos._id)">
               Delete
             </button>
           </td>
@@ -171,7 +185,13 @@
         <button
           type="button"
           class="btn btn-primary"
-          (click)="up.emit({ name: up_todo_name, priority: up_priority })"
+          (click)="
+            up.emit({
+              _id: id_to_add,
+              name: up_todo_name,
+              priority: up_priority
+            })
+          "
         >
           Update Todo
         </button>
